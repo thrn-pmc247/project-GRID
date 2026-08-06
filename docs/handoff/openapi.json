@@ -1,0 +1,4 @@
+{
+  "note": "Placeholder — generated from the FastAPI app in Phase 3 via `uv run python -m grid.api.generate_openapi` (script lands with the API). Do not hand-edit.",
+  "status": "pending-phase-3"
+}

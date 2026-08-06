@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history — the context gate's drift check needs git log
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Sync environment
+        run: uv sync --all-groups
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Ruff format check
+        run: uv run ruff format --check .
+
+      - name: Mypy (strict, src)
+        run: uv run mypy src
+
+      - name: Context hygiene gate
+        run: uv run python scripts/check_context.py
+
+      - name: Tests
+        run: uv run pytest

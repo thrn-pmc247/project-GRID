@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "deny": [
+      "WebFetch(domain:hq.moh.gov.my)",
+      "WebFetch(domain:ssm.com.my)",
+      "WebFetch(domain:*.ssm.com.my)",
+      "Read(.env)",
+      "Read(./data/**)"
+    ],
+    "allow": [
+      "Bash(uv run:*)",
+      "Bash(uv sync:*)",
+      "Bash(docker compose:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run python scripts/check_context.py --report",
+            "timeout": 120,
+            "statusMessage": "Context hygiene check"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run python scripts/check_context.py",
+            "timeout": 120,
+            "statusMessage": "Context hygiene check (pre-stop)"
+          }
+        ]
+      }
+    ]
+  }
+}
