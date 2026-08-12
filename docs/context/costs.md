@@ -1,8 +1,8 @@
 ---
 title: Costs
 owner: thiran
-last_verified: 2026-08-06
-verify_by: 2026-11-04
+last_verified: 2026-08-12
+verify_by: 2026-11-10
 covers_paths:
   - src/grid/enrich/**
 status: current
@@ -18,7 +18,7 @@ status: current
 
 | Item | Driver | Note |
 |---|---|---|
-| Google Maps Platform (Places Details, Text Search, Geocoding) | ~11k registered private clinics for initial enrichment + weekly refresh of active-queue records + `place_id` re-resolution on read (no caching of Places content) | **Unpriced here deliberately.** Per-SKU prices must be taken from the live Google pricing page at provisioning time and converted to RM; monthly ceiling in RM needs business owner sign-off before the API key is provisioned (`open-questions.md`). |
+| Google Maps Platform (Places Details, Text Search; **Geocoding largely dropped**) | ~11k registered private clinics for initial enrichment + weekly refresh of active-queue records + `place_id` re-resolution on read (no caching of Places content) | **Unpriced here deliberately.** Per-SKU prices must be taken from the live Google pricing page at provisioning time and converted to RM; monthly ceiling in RM needs business owner sign-off before the API key is provisioned (`open-questions.md`). **Reduced 2026-08-12 (ADR 0004):** MyGeoCKAPS supplies authoritative lat/long at SRID 4326, so the Geocoding SKU falls out of the spine and Places narrows to contact enrichment (phone, hours, website, review recency). Ask for the ceiling only after open question 18 settles whether the GIS already carries phone numbers. |
 | SSM documents | only if a concrete need arises; per-document purchase or licensed reseller | none identified yet — do not budget until a use case exists |
 | Job-board API access | Phase 2, if a board offers licensed API access as the compliant route | assess per board during Phase 2 |
 | Infra | local dev is free (Docker Postgres); hosting decision not yet made | open question for Phase 3 |

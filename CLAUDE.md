@@ -1,7 +1,7 @@
 # Project GRID — Agent Context Router
 
 > **Read this file fully every session. Load linked context files on demand per the table below.**
-> Last verified: 2026-08-06 · Budget: ≤150 lines / ≤1,200 words (enforced by `scripts/check_context.py`)
+> Last verified: 2026-08-12 · Budget: ≤150 lines / ≤1,200 words (enforced by `scripts/check_context.py`)
 
 ## Mission
 
@@ -17,13 +17,17 @@ GP / primary care only.
 ## Current state
 
 - Phase: 1 of 3 — Authoritative spine (bootstrap scaffold complete; pipeline code not started)
-- Next milestone: `sources/base.py` + CKAPS snapshot ingester, parser, differ
+- Spine changed 2026-08-12 (ADR 0004): MyGeoCKAPS ArcGIS REST layer 5, **not** CKAPS PDFs
+- Next milestone: `sources/base.py`. The `mygeockaps` adapter is **gated** on open
+  questions 14–16 (field list / record count / access) — do not write it before they clear
 - Status detail: `docs/context/roadmap.md`
 
 ## Hard guardrails — never violate
 
-1. Never crawl hq.moh.gov.my (ROBOTS_DISALLOWED). CKAPS register PDFs are manually
-   downloaded per `docs/runbooks/monthly-ckaps-refresh.md`, then parsed locally.
+1. Never crawl hq.moh.gov.my (ROBOTS_DISALLOWED). Its register PDFs are a manual,
+   historical-baseline path only (`docs/runbooks/monthly-ckaps-refresh.md`). Never fetch
+   mygos.mygeoportal.gov.my by any automated means (WebFetch, MCP, dev browsing) until
+   open question 16 settles access — human browser inspection only.
 2. Never scrape SSM (MyData / e-Info / EzBiz). Paid/licensed access only.
 3. Google Places: persist `place_id` only. Never cache other Places content; refresh on read.
 4. Segregate business data from practitioner personal data at schema level (PDPA 2010 as
@@ -32,6 +36,7 @@ GP / primary care only.
 6. No mass automated WhatsApp/email outreach. Consent-first, phone-first; any send
    capability stays behind `GRID_OUTREACH_SEND_ENABLED=false` pending compliance sign-off.
 7. GP clinics only. Exclude dental, specialist, physio, labs, hospitals, aesthetics-only.
+   MyGeoCKAPS separates these by layer — layer 5 is the target, layer 10 needs review.
 8. British/Malaysian English spelling; RM for currency.
 9. PMCare is a neutral TPA — never position it as insurer or treating clinician.
 10. Never invent statutes, citations, registration numbers or statistics. Flag

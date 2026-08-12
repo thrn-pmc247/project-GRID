@@ -1,9 +1,15 @@
 ---
 name: ckaps-register-parser
-description: Working knowledge for MOH CKAPS private-clinic register PDFs — snapshot layout and naming, pdfplumber parsing strategy, the scope-column taxonomy (Klinik Umum = GP ground truth), per-state quirks, known failure modes, and how to diff two snapshots. Use whenever touching src/grid/sources/ckaps.py or src/grid/ingest/, ingesting or diffing CKAPS register snapshots, or debugging register parse output.
+description: "HISTORICAL BASELINE ONLY (superseded by ADR 0004 — the Phase 1 spine is now the MyGeoCKAPS ArcGIS REST service, not these PDFs). Working knowledge for MOH CKAPS private-clinic register PDFs — snapshot layout, pdfplumber parsing, the scope-column taxonomy (Klinik Umum), per-state quirks and snapshot diffing. Use ONLY when parsing the stale 2022/2023 register PDFs for back-fill or cross-checking, not for new-clinic detection."
 ---
 
 # CKAPS register parsing
+
+> **Superseded 2026-08-12 (ADR 0004).** The published register PDFs are years stale
+> (most recent: "as of 31.12.2022" and "as of 30 June 2023") and cannot detect a
+> clinic that opened last month. The Phase 1 spine is the MyGeoCKAPS ArcGIS REST
+> service, layer 5 — see `docs/context/data-sources.md`. This skill applies only to
+> the historical-baseline path.
 
 ## Non-negotiable access rule
 

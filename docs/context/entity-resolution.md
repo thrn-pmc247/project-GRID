@@ -1,8 +1,8 @@
 ---
 title: Entity Resolution
 owner: thiran
-last_verified: 2026-08-06
-verify_by: 2026-11-04
+last_verified: 2026-08-12
+verify_by: 2026-11-10
 covers_paths:
   - src/grid/resolve/**
 status: current
@@ -47,10 +47,22 @@ same set (Phase 1 acceptance).
 ## Queue A vs Queue B rule
 
 A record is **genuinely new** (Queue A) only if:
-1. absent from all prior CKAPS snapshots, **and**
+1. absent from all prior MyGeoCKAPS snapshots (matched on `mygeockaps_id`, not fuzzily),
+   **and**
 2. corroborated by ≥1 `recency_signal`.
 
 Otherwise it is *newly listed but pre-existing* → Queue B.
+
+> **Cold-start caveat (ADR 0004).** Condition 1 is only meaningful once GRID holds two
+> or more snapshots. If MyGeoCKAPS carries no registration-date field (open q. 14), the
+> clock starts at the first pull and condition 1 cannot distinguish a genuinely new
+> clinic from one newly added to the GIS. Until enough snapshot history accrues,
+> **condition 2 carries the whole rule** — treat an uncorroborated first-appearance as
+> Queue B, never Queue A.
+
+Matching across sources (MyGeoCKAPS ↔ ProtectHealth ↔ Google Places ↔ PMCare panel)
+still needs the fuzzy pipeline above; only same-source diffing gets the stable-ID
+shortcut.
 
 ## Relocations and rebrands
 

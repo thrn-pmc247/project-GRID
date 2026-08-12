@@ -4,6 +4,13 @@
 > brief conflicts with defaults, this brief wins. Operational truth evolves in
 > `CLAUDE.md` + `docs/context/` — if this file and the context system disagree, the
 > context system is current.
+>
+> **Known superseded section (2026-08-12, ADR 0004):** the source plan below —
+> `sources/ckaps.py` parsing Act 586 register PDFs as the PRIMARY Phase 1 spine, the
+> `pdf-reading` skill prerequisite, and the monthly PDF refresh cadence — has been
+> replaced by the MyGeoCKAPS ArcGIS REST service (layer 5). The published PDFs proved
+> to be 2022/2023 vintage. Do not follow the source sections of this brief as current
+> instruction; see `docs/context/data-sources.md`.
 
 ---
 

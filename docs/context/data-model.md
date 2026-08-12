@@ -1,8 +1,8 @@
 ---
 title: Data Model
 owner: thiran
-last_verified: 2026-08-06
-verify_by: 2026-11-04
+last_verified: 2026-08-12
+verify_by: 2026-11-10
 covers_paths:
   - src/grid/db/**
 status: current
@@ -32,11 +32,22 @@ A sole proprietor's mobile that doubles as the clinic line is **personal**.
 | `website` | text | |
 | `scope` | enum | `gp` \| `gp_with_interest` \| `specialist` \| `excluded` |
 | `ckaps_reg_no` | text | Act 586 registration number |
+| `mygeockaps_id` | text | `ID_UNIK_PHS` from MyGeoCKAPS layer 5 — **the diffing key** (ADR 0004). Field name unconfirmed until open q. 14 |
+| `status_operasi` | text | Operational status as published by MyGeoCKAPS, if present. May supply active/ceased directly rather than by inference — confirm at open q. 14 |
 | `google_place_id` | text | **the only Places content persisted** |
 | `first_seen_at` | timestamptz | |
+| `registered_at` | date | Registration/approval date **if MyGeoCKAPS exposes one** (open q. 14). If absent, leave NULL and derive newness by snapshot diff only — see the note below |
 | `opened_estimate` | date | |
 | `opened_confidence` | float | from recency-signal fusion |
 | `status` | enum | active \| closed \| unverified |
+
+`geom` is populated natively from MyGeoCKAPS (`esriGeometryPoint`, SRID 4326) rather
+than geocoded, so PostGIS is load-bearing from the first migration.
+
+> **If `registered_at` cannot be sourced**, GRID's clock starts at the first snapshot:
+> for the first few months a genuinely new clinic is indistinguishable from one newly
+> added to the GIS. Queue A then rests entirely on `recency_signal` corroboration and
+> Queue B carries the KPI. This is the highest-consequence open item in the project.
 
 ## `clinic_source_record` — provenance (business; `raw_payload` may embed personal → strip at parse)
 
@@ -58,11 +69,19 @@ A sole proprietor's mobile that doubles as the clinic line is **personal**.
 
 Not returned by default API responses; Phase 3 adds elevated scope + access audit log.
 
+**Concrete trigger (2026-08-12):** PERKESO panel listings publish doctors' names
+alongside clinic name, address, phone and clinic code. Any PERKESO adapter must route
+names to this table with `lawful_basis` and `retention_until` set at write time — never
+into `clinic`. MyGeoCKAPS may also expose practitioner names (open q. 19).
+
 ## `recency_signal` (business)
 
-`clinic_id`, `signal_type` (`job_posting` | `socso_panel_add` | `first_google_review` |
-`grand_opening_post` | `ckaps_new_registration` | `chain_announcement`),
-`signal_date`, `source_url`, `weight`.
+`clinic_id`, `signal_type` (`job_posting` | `socso_panel_add` | `protecthealth_panel_add` |
+`first_google_review` | `grand_opening_post` | `ckaps_new_registration` |
+`chain_announcement`), `signal_date`, `source_url`, `weight`.
+
+`protecthealth_panel_add` is a strong signal: joining a government payer panel
+demonstrates the clinic actively wants panel business (ADR 0004).
 
 ## `panel_membership` (business)
 
