@@ -1,8 +1,8 @@
 ---
 title: Data Model
 owner: thiran
-last_verified: 2026-08-17
-verify_by: 2026-11-15
+last_verified: 2026-08-18
+verify_by: 2026-11-16
 covers_paths:
   - src/grid/db/**
   - src/grid/pr001/**

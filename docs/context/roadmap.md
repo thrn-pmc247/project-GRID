@@ -1,8 +1,8 @@
 ---
 title: Roadmap
 owner: thiran
-last_verified: 2026-08-17
-verify_by: 2026-11-15
+last_verified: 2026-08-18
+verify_by: 2026-11-16
 covers_paths: []
 status: current
 ---
@@ -31,6 +31,13 @@ Known blocked item: Docker Desktop not installed → database not yet brought up
 >
 > Delivered against the acceptance list below: the first migration, the PMCare panel
 > loader, and the KPI baseline. Still outstanding: everything on the discovery side.
+
+> **Queue B shipped 2026-08-18 (ADR 0007).** The 4,550-row engagement queue and its
+> branded XLSX export are derived at read time from the incumbent master — offline, no
+> new tables, and blocked on nothing. This is the volume buffer that carries the 40–60
+> per month KPI while Queue A stays gated behind open questions 14–16. What it is **not**
+> is a list of clinics PMCare has never met: all 4,550 already hold an appointment date
+> (median year 2007, against 2020 for on-panel rows), which is open question 36.
 
 > **Rewritten 2026-08-12 (ADR 0004).** The spine is the MyGeoCKAPS ArcGIS REST service
 > (layer 5), not parsed CKAPS PDFs. PDF parsing, `pdfplumber`, layout inference and OCR
@@ -61,9 +68,24 @@ MyGeoCKAPS layer 5 → paginated GeoJSON pull → normalise → snapshot → CSV
 - [ ] Two snapshots diff correctly: genuinely-new vs newly-listed separated. *If no
       registration-date field exists, this degrades to "newly appearing in the GIS" and
       the report must say so — never present it as genuinely-new.*
-- [ ] Queue B list of GP clinics not on the PMCare panel exports to branded XLSX.
+- [x] **Queue B list of GP clinics not on the PMCare panel exports to branded XLSX** —
+      **4,550 not on panel, of which 4,311 are a callable list**, derived at read time
+      from `core.provider_outlet` with no new tables and no second migration (ADR 0007).
+      13,552 GP → 10,506 active by status code (10,507 by the point-in-time rule) →
+      5,957 active and on panel → 4,550 not on panel → 4,311 after routing 218 probable
+      duplicates and 20 flagged rows to review and excluding 1 superseded code.
+      National: Selangor 1,114 · Johor 760 · WP Kuala Lumpur 606 · Perak 398 · Pulau
+      Pinang 329 · Kedah 228 · Sabah 214 · Sarawak 172 · Kelantan 169 · Negeri Sembilan
+      168. Rows are **banded, not scored** — PR001 has no conversion outcome to fit
+      against. The default workbook carries **no phone numbers**, so it ships ahead of
+      the personal-data answers; a contact workbook sits behind a config flag defaulting
+      false plus an explicit CLI flag, mobiles excluded by default. Separately, 345 GP
+      providers terminated since 2024-01-01 form a win-back segment.
 - [ ] Suppression false-positive rate measured on a hand-labelled sample of ≥100 pairs.
-- [ ] `check_context.py` exits 0.
+- [x] **`check_context.py` exits 0** — item **D1** of `docs/reconciliation-pr001.md` is
+      cleared: `PR001_provider_master.xlsx` moved out of the repo root to `data/raw/`,
+      so check 13 no longer fails on a stray root `*.xlsx`. The gate is green and stays
+      a per-task Definition of Done item, not a one-off.
 
 **Gate before any `mygeockaps` code** (ADR 0004; open questions 14–16): the layer 5
 field list — above all whether a registration/approval date exists — the record count,

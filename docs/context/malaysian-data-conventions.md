@@ -1,8 +1,8 @@
 ---
 title: Malaysian Data Conventions
 owner: thiran
-last_verified: 2026-08-06
-verify_by: 2026-11-04
+last_verified: 2026-08-18
+verify_by: 2026-11-16
 covers_paths:
   - src/grid/normalise/**
 status: current
@@ -48,11 +48,25 @@ Putrajaya → WP Putrajaya.
 
 ## Phones
 
+`normalise/phones.py` **now exists** (built with the Queue B delivery, ADR 0007). The
+contract it implements:
+
 - Normalise to +60 E.164 via `phonenumbers`.
+- **The region must resolve to MY.** A number that parses but belongs to another region
+  is not Malaysian and is not relabelled as one — a `+65` number stays Singaporean and is
+  rejected, rather than being silently absorbed into the panel's contact data.
+- **Invalid numbers are dropped, never repaired.** No digit-padding, no prefix-guessing,
+  no truncation to a plausible length. An unparsable value is recorded as absent, because
+  a repaired phone number is a fabricated one (guardrail 10).
+- **Multi-value fields are split**, the first parseable value becomes the primary, and
+  the non-primary values are **retained** rather than discarded — a clinic that lists two
+  lines has two lines.
 - Fixed lines: `03` (KL/Selangor), `04`–`09` regional, `08x` Sabah/Sarawak ranges.
 - `01x` numbers are mobiles → **potentially personal data** (sole proprietor rule,
-  `compliance-pdpa.md`). Never place realistic sample numbers in docs or code —
-  the forbidden-strings check (check 13) rejects them outside `tests/`.
+  `compliance-pdpa.md`), classified separately from fixed lines so exports can exclude
+  them by default. Never place realistic sample numbers in docs or code — the
+  forbidden-strings check (check 13) rejects mobile-shaped literals in any tracked file
+  outside `tests/`, which includes docstrings, fixtures kept beside source, and comments.
 
 ## Language
 

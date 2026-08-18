@@ -32,8 +32,9 @@ from dataclasses import dataclass, field
 from typing import Any, Final
 
 import structlog
-from sqlalchemy import Engine, Row, delete, func, insert, select
-from sqlalchemy.orm import Session
+from sqlalchemy import Engine, Row, and_, delete, func, insert, or_, select
+from sqlalchemy.orm import InstrumentedAttribute, Session
+from sqlalchemy.sql.elements import ColumnElement
 
 from grid.db.models import (
     OpsLoadLog,
@@ -671,6 +672,50 @@ def _build_row(
 # --------------------------------------------------------------------------------------
 
 
+DateColumn = ColumnElement["dt.datetime | None"] | InstrumentedAttribute["dt.datetime | None"]
+"""Either a Core column or a mapped ORM attribute holding a nullable timestamp.
+
+Both are accepted so `active_as_of_clause` can be applied to `staging.provider_outlet`
+and `core.provider_outlet` alike without a cast at either call site.
+"""
+
+
+def active_as_of_clause(
+    appointment: DateColumn,
+    termination: DateColumn,
+    suspension: DateColumn,
+    *,
+    as_of: dt.date,
+) -> ColumnElement[bool]:
+    """Set-based form of the point-in-time activity rule.
+
+    Takes columns rather than a model so `staging.provider_outlet` and
+    `core.provider_outlet` share one definition of "active" instead of each growing its
+    own. `is_active_as_of` is built on this, so the row-wise and set-based answers cannot
+    drift apart — an equivalence test pins that.
+
+    Deliberately **not** `termination_date IS NULL`. See `is_active_as_of`.
+
+    Args:
+        appointment: The appointment-date column.
+        termination: The termination-date column.
+        suspension: The suspension-date column.
+        as_of: The date to evaluate activity on.
+
+    Returns:
+        A boolean SQL expression suitable for a `WHERE` clause.
+    """
+    # One boundary for all three comparisons: everything strictly before midnight at the
+    # end of `as_of` has happened, everything at or after it has not. Using a single
+    # instant avoids date/datetime coercion differences between SQLite and Postgres.
+    next_midnight = dt.datetime.combine(as_of + dt.timedelta(days=1), dt.time.min)
+    return and_(
+        or_(appointment.is_(None), appointment < next_midnight),
+        or_(termination.is_(None), termination >= next_midnight),
+        or_(suspension.is_(None), suspension >= next_midnight),
+    )
+
+
 def is_active_as_of(engine: Engine, provider_code: str, as_of_date: dt.date) -> bool:
     """Whether a provider was active on a given date.
 
@@ -683,22 +728,14 @@ def is_active_as_of(engine: Engine, provider_code: str, as_of_date: dt.date) -> 
     A provider is active as of `as_of_date` when it had been appointed by then, and
     neither its termination nor its suspension had yet taken effect.
     """
-    stmt = select(
-        StagingProviderOutlet.appointment_date,
-        StagingProviderOutlet.termination_date,
-        StagingProviderOutlet.suspension_date,
-    ).where(StagingProviderOutlet.provider_code == provider_code)
-
-    with engine.connect() as conn:
-        row = conn.execute(stmt).one_or_none()
-    if row is None:
-        return False
-
-    appointed, terminated, suspended = row
-    if appointed is not None and appointed.date() > as_of_date:
-        return False
-    # Active only while neither ending has taken effect by `as_of_date`. A future-dated
-    # termination is not yet an ending.
-    return not any(
-        ending is not None and ending.date() <= as_of_date for ending in (terminated, suspended)
+    stmt = select(StagingProviderOutlet.provider_code).where(
+        StagingProviderOutlet.provider_code == provider_code,
+        active_as_of_clause(
+            StagingProviderOutlet.appointment_date,
+            StagingProviderOutlet.termination_date,
+            StagingProviderOutlet.suspension_date,
+            as_of=as_of_date,
+        ),
     )
+    with engine.connect() as conn:
+        return conn.execute(stmt).one_or_none() is not None

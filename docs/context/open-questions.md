@@ -1,8 +1,8 @@
 ---
 title: Open Questions
 owner: thiran
-last_verified: 2026-08-17
-verify_by: 2026-11-15
+last_verified: 2026-08-18
+verify_by: 2026-11-16
 covers_paths: []
 status: current
 ---
@@ -198,6 +198,73 @@ and the affected records sit in a review queue instead of the engagement queue.
     urgent, because coordinates are only ever used to confirm a match and never to make
     one. But if map position is ever to be relied on for territory or state reporting, we
     need an authoritative Malaysian boundary dataset, and someone needs to own sourcing it.
+
+### Queue B call list — questions raised by the delivery (2026-08-18)
+
+Raised by the Queue B workbook (ADR 0007). Questions 36 and 37 are for the PNM team and
+need no database access. Questions 38 to 40 need the DPO or compliance, and **38 to 40
+together gate the contact workbook** — the default Queue B workbook carries no phone
+numbers precisely so it can ship while these are open.
+
+36. **What does it mean when an active GP provider is flagged as not on the panel?**
+    We have 4,550 GP clinics that are recorded as active in the provider master and
+    flagged as not on the PMCare panel. That is the queue we are handing PNM. But every
+    single one of them already has a panel-appointment date on record, and the middle
+    value is **2007** — against **2020** for the clinics that are on panel. So these are
+    not clinics we have never engaged. They are providers already in our master, active,
+    flagged not-on-panel, and most of them were appointed a long time ago. What is the
+    real-world story behind that combination — lapsed agreements, a migration from an
+    older system, clinics that were appointed but never activated, something else?
+    *What changes:* two things. The call script, because "we would like to introduce
+    PMCare" is the wrong opening line for a clinic that was appointed in 2007. And the
+    KPI, because if these are lapsed rather than new relationships, it must be decided
+    whether engaging one counts as **net-new** against the 40–60 per month target or as a
+    reactivation counted separately.
+37. **Are the 147 providers that are terminated yet still flagged as on the panel a data
+    error?** 147 providers carry a termination on their record while their panel flag
+    still says they are on the PMCare panel. The two contradict each other and we do not
+    know which one is right. Is this a known state with a meaning we are missing (a
+    termination in progress, a notice period, a flag updated on a different cycle), or is
+    it simply stale data? *What changes:* GRID reads the panel flag as authoritative when
+    it decides who to suppress from the engagement queue. If the flag is the wrong one of
+    the pair, 147 terminated clinics are being held out of a queue they belong in — and
+    they would be strong win-back prospects. If the termination is the wrong one, our
+    panel count is understated.
+38. **Is a call sheet containing clinic phone numbers permitted under PMCare's PDPA
+    processing register, and on what lawful basis?** PNM would like the queue with phone
+    numbers so it can be worked as a call list. Producing that file means personal data
+    leaves the system in a spreadsheet, so we need the DPO to say whether GRID's use is
+    covered by an existing entry in PMCare's processing register or needs a new one, and
+    which lawful basis applies. Related to question 5. *What changes:* the contact
+    workbook stays behind a switch that is off until this is answered. The queue itself
+    ships either way, without phone numbers.
+39. **Should sole-proprietor mobile numbers be included in a call list at all?** Of the
+    valid phone numbers on the queue, **385 are mobile numbers** and 3,463 are fixed
+    lines. For a clinic run by a single doctor, the mobile is very often that doctor's own
+    personal number rather than a clinic line, which makes it personal data about a person
+    rather than contact details for a business. Should those 385 be in a call sheet, and
+    if so under what conditions? *What changes:* mobiles are excluded by default today. If
+    they may be included, 385 clinics become reachable that currently are not. If they may
+    not, that exclusion becomes permanent and the affected clinics need a different
+    contact route.
+40. **How long may an exported call sheet be retained, and who destroys it?** Once a
+    workbook is exported it sits on someone's laptop or shared drive, outside anything
+    GRID controls. We need a retention period, a named owner responsible for destroying it
+    at the end of that period, and a rule on whether it may be forwarded or re-shared.
+    *What changes:* the retention period is printed on the workbook cover sheet and the
+    export is dated so an expired copy is recognisable. Without an answer we cannot state
+    a period, and an undated call sheet with personal data in it circulating indefinitely
+    is exactly the risk the PDPA controls exist to prevent.
+41. **Is a clinic reachable only on a mobile number genuinely uncontactable, or are we
+    hiding good leads?** Roughly 7,100 providers across the master have a valid number
+    that is a mobile rather than a landline, and GRID currently treats those as *not*
+    contactable when it ranks the queue — because a sole proprietor's mobile is personal
+    data in a way a clinic landline is not. That is the cautious reading.
+    *What changes:* if PNM routinely and acceptably rings clinic mobiles today, a large
+    number of clinics are being pushed to the bottom of the list for no good reason, and
+    the setting should be flipped. If it is not acceptable, the current behaviour is
+    right and should be stated in the outreach policy rather than left as a code default.
+    *(Raised 2026-08-18.)*
 
 ## Closed
 

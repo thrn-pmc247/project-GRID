@@ -15,6 +15,7 @@ import structlog
 from sqlalchemy import Engine
 
 from grid.db.models import Base
+from grid.panel.suppression import create_queue_b_view
 from grid.pr001.bronze import LoadResult, load_bronze
 from grid.pr001.core import CoreBuildResult, build_core
 from grid.pr001.pdpa import create_shareable_views, populate_pii
@@ -83,6 +84,9 @@ def run_pr001_pipeline(
     core = build_core(engine, bronze.ingest_id)
     pii_rows = populate_pii(engine, bronze.ingest_id, salt=salt, today=reference_day)
     create_shareable_views(engine)
+    # Created here rather than left to the caller so the PDPA audit in
+    # `pdpa.audit_shareable_views` always has the view to inspect.
+    create_queue_b_view(engine, as_of=reference_day)
 
     report = PipelineReport(
         bronze=bronze,

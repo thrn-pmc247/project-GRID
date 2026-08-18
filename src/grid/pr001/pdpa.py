@@ -61,6 +61,10 @@ SHAREABLE_VIEWS: Final[Mapping[str, str]] = {
     ),
     "v_kpi_appointments_monthly": ("Monthly appointment counts by provider type. Aggregate only."),
     "v_chain_summary": "Inferred chain groupings with outlet counts.",
+    "v_queue_b": (
+        "Queue B — active GP outlets not on the PMCare panel. Business data only; the "
+        "call list carries no phone number, so this view is safe to share."
+    ),
 }
 """Views that may be exposed to analysts or exported. Anything absent is not shareable."""
 
