@@ -266,6 +266,27 @@ numbers precisely so it can ship while these are open.
     right and should be stated in the outreach policy rather than left as a code default.
     *(Raised 2026-08-18.)*
 
+### Position recorded on 38–41 (2026-08-18)
+
+Thiran's position, recorded verbatim as a **business decision**: GRID is for internal use
+only, and on that basis the personal-data handling above is treated as permitted.
+
+Two things this does and does not do, stated so nobody later reads it as more than it is:
+
+- **It does** authorise the queue and its handling as currently built, and it is the
+  standing answer for how GRID treats provider contact data internally.
+- **It does not** remove PDPA 2010 (as amended 2024) obligations. Internal processing is
+  still processing: a lawful basis, a retention period, purpose limitation and access
+  control all still apply, and a call sheet on a laptop is still personal data leaving
+  the system. So questions 38, 39 and 40 stay **open against the DPO**, not closed —
+  what has changed is that they no longer block delivery.
+
+Concretely, the code was **not** changed on the strength of this. The contact workbook
+remains behind `GRID_EXPORT_CONTACTS_ENABLED` (default false) and mobiles remain excluded
+from contactability by default. Flipping either is a one-line change, and it should be
+made deliberately, by name, when 39 and 41 have an actual answer — not inherited from a
+general assurance. See `docs/decisions/0007-queue-b-derived-at-read-time.md`.
+
 ## Closed
 
 - **3. `pdf-reading` public skill unavailable** — closed 2026-08-12. `pdfplumber` left
