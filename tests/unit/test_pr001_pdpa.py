@@ -22,6 +22,7 @@ from __future__ import annotations
 import datetime as dt
 import re
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Final
 
 import pytest
@@ -322,8 +323,22 @@ def test_the_disclosure_patterns_actually_match_their_shapes() -> None:
 # --------------------------------------------------------------------------------------
 
 
+@pytest.fixture
+def no_dotenv_salt(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Neutralise the `.env` fallback so the raise-paths are testable anywhere.
+
+    `get_salt` reads a real environment variable first and `.env` second. A developer
+    machine with a populated `.env` would otherwise satisfy the second source and make
+    the "missing salt" tests pass for the wrong reason — or fail, depending on whose
+    checkout it is. Stubbing the settings accessor keeps the test about the code.
+    """
+    monkeypatch.setattr("grid.pr001.pdpa.get_settings", lambda: SimpleNamespace(pii_hash_salt=""))
+
+
 @pytest.mark.parametrize("blank", ["", "   ", "\t", "\n  \t "])
-def test_missing_salt_raises(monkeypatch: pytest.MonkeyPatch, blank: str) -> None:
+def test_missing_salt_raises(
+    monkeypatch: pytest.MonkeyPatch, no_dotenv_salt: None, blank: str
+) -> None:
     """An unset or blank salt is fatal, never silently defaulted.
 
     Hashing with an empty salt would produce a rainbow-table-reversible digest and give
@@ -335,11 +350,38 @@ def test_missing_salt_raises(monkeypatch: pytest.MonkeyPatch, blank: str) -> Non
         get_salt()
 
 
-def test_absent_salt_variable_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_absent_salt_variable_raises(monkeypatch: pytest.MonkeyPatch, no_dotenv_salt: None) -> None:
     """A salt that was never set at all is equally fatal."""
     monkeypatch.delenv(SALT_ENV_VAR, raising=False)
     with pytest.raises(MissingSaltError):
         get_salt()
+
+
+def test_salt_is_read_from_dotenv_when_the_variable_is_absent(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """`.env` is a real source, because the error message and .env.example promise it.
+
+    This is the regression guard for a defect found by running the CLI on a fresh
+    machine: the salt sat in `.env` exactly as instructed and `get_salt` still raised,
+    because it only ever consulted the raw environment.
+    """
+    monkeypatch.delenv(SALT_ENV_VAR, raising=False)
+    monkeypatch.setattr(
+        "grid.pr001.pdpa.get_settings", lambda: SimpleNamespace(pii_hash_salt=TEST_SALT)
+    )
+    assert get_salt() == TEST_SALT
+
+
+def test_a_real_environment_variable_wins_over_dotenv(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Precedence: an explicitly exported variable beats the file."""
+    monkeypatch.setenv(SALT_ENV_VAR, "from-environment")
+    monkeypatch.setattr(
+        "grid.pr001.pdpa.get_settings", lambda: SimpleNamespace(pii_hash_salt="from-dotenv")
+    )
+    assert get_salt() == "from-environment"
 
 
 def test_configured_salt_is_returned(monkeypatch: pytest.MonkeyPatch) -> None:

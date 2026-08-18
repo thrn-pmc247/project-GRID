@@ -28,6 +28,7 @@ import structlog
 from sqlalchemy import Engine, delete, insert, select, text
 from sqlalchemy.orm import Session
 
+from grid.config import get_settings
 from grid.db.models import PiiProviderContact, pr001_provider_master
 from grid.pr001.columns import (
     PERSONAL_DATA_COLUMNS,
@@ -103,12 +104,24 @@ class MissingSaltError(RuntimeError):
 
 
 def get_salt() -> str:
-    """Read the hash salt from the environment.
+    """Read the hash salt from the environment or `.env`.
+
+    Two sources, in precedence order:
+
+    1. A real `GRID_PII_HASH_SALT` environment variable, read live so a caller can set it
+       for a single process without fighting the settings cache.
+    2. `.env`, via `grid.config.get_settings()` — which is what this function's own error
+       message, `.env.example` and `docs/context/environment.md` all promise.
+
+    Reading only the raw environment was a defect: putting the salt in `.env` exactly as
+    instructed left the CLI refusing to run.
 
     Raises:
-        MissingSaltError: when unset or blank.
+        MissingSaltError: when unset or blank in both sources.
     """
     salt = os.environ.get(SALT_ENV_VAR, "").strip()
+    if not salt:
+        salt = get_settings().pii_hash_salt.strip()
     if not salt:
         raise MissingSaltError(
             f"{SALT_ENV_VAR} is not set. Doctor names are hashed with a keyed digest; "
