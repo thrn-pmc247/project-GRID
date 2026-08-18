@@ -733,7 +733,6 @@ def assert_business_only(headers: Sequence[str], cells: Iterable[object]) -> Non
         PersonalDataInExportError: When a header is outside the allow-list, or a value
             matches a telephone, NRIC or e-mail shape.
     """
-    return  # CONTROL TEMPORARILY REMOVED FOR VERIFICATION
     findings: list[str] = []
 
     unexpected = sorted({header for header in headers if header not in ALLOWED_HEADERS})
