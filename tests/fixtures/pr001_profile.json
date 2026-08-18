@@ -1,0 +1,1375 @@
+{
+  "column_count": 70,
+  "columns": [
+    {
+      "blank_count": 0,
+      "distinct_count": 33643,
+      "logical_type": "STRING",
+      "name": "PROVIDER_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 26520,
+      "logical_type": "STRING",
+      "name": "PROVIDER_DESCRIPTION",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 15454,
+      "distinct_count": 4211,
+      "logical_type": "STRING",
+      "name": "HBRN",
+      "null_count": 13393,
+      "parquet_type": "String",
+      "real_count": 4796,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 1,
+      "logical_type": "STRING",
+      "max": "NONE",
+      "min": "NONE",
+      "name": "PROVIDER_ALIAS_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33643,
+          "value": "NONE"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 21,
+      "logical_type": "STRING",
+      "max": "WP",
+      "min": "AM",
+      "name": "PROVIDER_TYPE_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 13552,
+          "value": "GP"
+        },
+        {
+          "count": 7000,
+          "value": "OP"
+        },
+        {
+          "count": 5140,
+          "value": "DT"
+        },
+        {
+          "count": 2573,
+          "value": "SP"
+        },
+        {
+          "count": 1115,
+          "value": "PH"
+        },
+        {
+          "count": 776,
+          "value": "LB"
+        },
+        {
+          "count": 720,
+          "value": "WP"
+        },
+        {
+          "count": 690,
+          "value": "AM"
+        },
+        {
+          "count": 657,
+          "value": "HP"
+        },
+        {
+          "count": 637,
+          "value": "MS"
+        },
+        {
+          "count": 442,
+          "value": "FS"
+        },
+        {
+          "count": 279,
+          "value": "DC"
+        },
+        {
+          "count": 22,
+          "value": "TD"
+        },
+        {
+          "count": 17,
+          "value": "NA"
+        },
+        {
+          "count": 9,
+          "value": "CL"
+        },
+        {
+          "count": 6,
+          "value": "IM"
+        },
+        {
+          "count": 2,
+          "value": "CP"
+        },
+        {
+          "count": 2,
+          "value": "MT"
+        },
+        {
+          "count": 2,
+          "value": "PT"
+        },
+        {
+          "count": 1,
+          "value": "FT"
+        },
+        {
+          "count": 1,
+          "value": "PM"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 7,
+      "logical_type": "STRING",
+      "max": "X",
+      "min": "A",
+      "name": "CATEGORY_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33322,
+          "value": "P"
+        },
+        {
+          "count": 244,
+          "value": "G"
+        },
+        {
+          "count": 28,
+          "value": "C"
+        },
+        {
+          "count": 21,
+          "value": "A"
+        },
+        {
+          "count": 12,
+          "value": "F"
+        },
+        {
+          "count": 11,
+          "value": "U"
+        },
+        {
+          "count": 5,
+          "value": "X"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "PMCARE_PANEL_STATUS",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 22615,
+          "value": false
+        },
+        {
+          "count": 11028,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 127,
+      "distinct_count": 30187,
+      "logical_type": "STRING",
+      "name": "ADDRESS1",
+      "null_count": 135,
+      "parquet_type": "String",
+      "real_count": 33381,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 3112,
+      "distinct_count": 16741,
+      "logical_type": "STRING",
+      "name": "ADDRESS2",
+      "null_count": 3333,
+      "parquet_type": "String",
+      "real_count": 27198,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 10171,
+      "distinct_count": 6718,
+      "logical_type": "STRING",
+      "name": "ADDRESS3",
+      "null_count": 5543,
+      "parquet_type": "String",
+      "real_count": 17929,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 1599,
+      "distinct_count": 1019,
+      "logical_type": "STRING",
+      "name": "CITY",
+      "null_count": 617,
+      "parquet_type": "String",
+      "real_count": 31427,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 226,
+      "distinct_count": 1171,
+      "logical_type": "STRING",
+      "name": "POSTCODE",
+      "null_count": 583,
+      "parquet_type": "String",
+      "real_count": 32834,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 18,
+      "logical_type": "STRING",
+      "max": "ZZ",
+      "min": "00",
+      "name": "STATE_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 10220,
+          "value": "SL"
+        },
+        {
+          "count": 5813,
+          "value": "KL"
+        },
+        {
+          "count": 3431,
+          "value": "JB"
+        },
+        {
+          "count": 2247,
+          "value": "PR"
+        },
+        {
+          "count": 2080,
+          "value": "PG"
+        },
+        {
+          "count": 1531,
+          "value": "SR"
+        },
+        {
+          "count": 1420,
+          "value": "SB"
+        },
+        {
+          "count": 1419,
+          "value": "KD"
+        },
+        {
+          "count": 1351,
+          "value": "NS"
+        },
+        {
+          "count": 1079,
+          "value": "PH"
+        },
+        {
+          "count": 1069,
+          "value": "ML"
+        },
+        {
+          "count": 901,
+          "value": "KN"
+        },
+        {
+          "count": 751,
+          "value": "TR"
+        },
+        {
+          "count": 136,
+          "value": "PE"
+        },
+        {
+          "count": 118,
+          "value": "PJ"
+        },
+        {
+          "count": 47,
+          "value": "LA"
+        },
+        {
+          "count": 29,
+          "value": "ZZ"
+        },
+        {
+          "count": 1,
+          "value": "00"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "MEDILINE_USER",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 25163,
+          "value": false
+        },
+        {
+          "count": 8480,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "OPEN24HOURS",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 32185,
+          "value": false
+        },
+        {
+          "count": 1458,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "OPEN_PUBLIC_HOLIDAYS",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 31232,
+          "value": false
+        },
+        {
+          "count": 2411,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "GL_ELIGIBILITY_STATUS",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 30710,
+          "value": false
+        },
+        {
+          "count": 2933,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 11234,
+      "distinct_count": 24,
+      "logical_type": "STRING",
+      "name": "GL_ELIGIBILITY_APPROVE_BY",
+      "null_count": 13497,
+      "parquet_type": "String",
+      "real_count": 8912,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 0,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": null,
+      "min": null,
+      "name": "GL_ELIGIBILITY_APPROVE_DATE",
+      "null_count": 33643,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 0,
+      "top_values": []
+    },
+    {
+      "blank_count": 9278,
+      "distinct_count": 11815,
+      "logical_type": "STRING",
+      "name": "DOCTOR_NAME",
+      "null_count": 10869,
+      "parquet_type": "String",
+      "real_count": 13496,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 19852,
+      "distinct_count": 73,
+      "logical_type": "STRING",
+      "name": "WEBSITE",
+      "null_count": 13708,
+      "parquet_type": "String",
+      "real_count": 83,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 0,
+      "logical_type": "STRING",
+      "max": null,
+      "min": null,
+      "name": "VISUAL",
+      "null_count": 33643,
+      "parquet_type": "String",
+      "real_count": 0,
+      "top_values": []
+    },
+    {
+      "blank_count": 596,
+      "distinct_count": 28916,
+      "logical_type": "STRING",
+      "name": "GENERAL_PHONE_NO",
+      "null_count": 1755,
+      "parquet_type": "String",
+      "real_count": 31292,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 15950,
+      "distinct_count": 7158,
+      "logical_type": "STRING",
+      "name": "GENERAL_FAX_NO",
+      "null_count": 10072,
+      "parquet_type": "String",
+      "real_count": 7621,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 3,
+      "logical_type": "STRING",
+      "max": "X",
+      "min": "C",
+      "name": "PAYMENT_METHOD_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 19868,
+          "value": "C"
+        },
+        {
+          "count": 11035,
+          "value": "M"
+        },
+        {
+          "count": 2740,
+          "value": "X"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 4,
+      "logical_type": "STRING",
+      "max": "V",
+      "min": "A",
+      "name": "STATUS_CODE",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 29591,
+          "value": "A"
+        },
+        {
+          "count": 4032,
+          "value": "T"
+        },
+        {
+          "count": 17,
+          "value": "S"
+        },
+        {
+          "count": 3,
+          "value": "V"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 76,
+      "logical_type": "STRING",
+      "name": "STATUS_BY",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 9337,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-08-05T00:00:00",
+      "min": "2000-09-19T15:20:20",
+      "name": "STATUS_DATE",
+      "null_count": 0,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 33643
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 4319,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-08-05T00:00:00",
+      "min": "1995-05-02T00:00:00",
+      "name": "APPOINMENT_DATE",
+      "null_count": 0,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 33643
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 1379,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2028-08-05T00:00:00",
+      "min": "1997-01-23T00:00:00",
+      "name": "TERMINATION_DATE",
+      "null_count": 29611,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 4032
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 17,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-05-12T00:00:00",
+      "min": "2005-11-24T00:00:00",
+      "name": "SUSPENSION_DATE",
+      "null_count": 33626,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 17,
+      "top_values": [
+        {
+          "count": 1,
+          "value": "2005-11-24T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2007-07-13T12:01:35.233000"
+        },
+        {
+          "count": 1,
+          "value": "2007-07-13T12:02:59.827000"
+        },
+        {
+          "count": 1,
+          "value": "2011-11-24T16:29:52.673000"
+        },
+        {
+          "count": 1,
+          "value": "2013-02-06T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2014-12-15T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2019-11-19T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2020-06-01T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2020-08-24T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2023-01-04T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2023-03-01T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2023-03-16T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2023-08-28T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2023-09-27T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2025-06-11T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2026-05-08T00:00:00"
+        },
+        {
+          "count": 1,
+          "value": "2026-05-12T00:00:00"
+        }
+      ]
+    },
+    {
+      "blank_count": 562,
+      "distinct_count": 11055,
+      "logical_type": "STRING",
+      "name": "REMARKS",
+      "null_count": 6029,
+      "parquet_type": "String",
+      "real_count": 27052,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 47,
+      "logical_type": "STRING",
+      "name": "CREATE_BY",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 8982,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-08-05T00:00:00",
+      "min": "2000-09-12T00:00:00",
+      "name": "CREATE_DATE",
+      "null_count": 0,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 33643
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 87,
+      "logical_type": "STRING",
+      "name": "MODIFY_BY",
+      "null_count": 11139,
+      "parquet_type": "String",
+      "real_count": 22504,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 6419,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-08-05T07:01:04.800000",
+      "min": "2000-09-19T15:20:20",
+      "name": "MODIFY_DATE",
+      "null_count": 11139,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 22504
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "ACC_VENDOR_FLAG",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 20745,
+          "value": true
+        },
+        {
+          "count": 12898,
+          "value": false
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 6900,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-08-05T02:42:31.340000",
+      "min": "1900-01-01T00:00:00",
+      "name": "ACC_VENDOR_FLAG_DATE",
+      "null_count": 0,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 33643
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 1,
+      "logical_type": "BOOLEAN",
+      "name": "SYS_ISACTIVE",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33643,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 26,
+      "logical_type": "STRING",
+      "name": "SYS_ADMIN_REMARKS",
+      "null_count": 30098,
+      "parquet_type": "String",
+      "real_count": 3545,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 17100,
+      "logical_type": "TIMESTAMP(micros, not UTC-adjusted)",
+      "max": "2026-08-05T19:17:18.440000",
+      "min": "2013-05-30T00:50:17.403000",
+      "name": "SYS_TIME_STAMP",
+      "null_count": 0,
+      "parquet_type": "Datetime(time_unit='us', time_zone=None)",
+      "real_count": 33643
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 33643,
+      "logical_type": "STRING",
+      "name": "ROW_GUID",
+      "null_count": 0,
+      "parquet_type": "String",
+      "real_count": 33643,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 33628,
+      "logical_type": "INT64",
+      "max": 97503,
+      "min": 1,
+      "name": "MIX_ROW_ID",
+      "null_count": 0,
+      "parquet_type": "Int64",
+      "real_count": 33643
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "isPMRused",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 27765,
+          "value": false
+        },
+        {
+          "count": 5878,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 9730,
+      "logical_type": "DOUBLE",
+      "max": 932799.0,
+      "min": 0.0,
+      "name": "LATITUDE",
+      "null_count": 17525,
+      "parquet_type": "Float64",
+      "real_count": 16118
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 9738,
+      "logical_type": "DOUBLE",
+      "max": 195670001957475.0,
+      "min": 0.0,
+      "name": "LONGITUDE",
+      "null_count": 17525,
+      "parquet_type": "Float64",
+      "real_count": 16118
+    },
+    {
+      "blank_count": 17998,
+      "distinct_count": 152,
+      "logical_type": "STRING",
+      "name": "GST_REG_NO",
+      "null_count": 15467,
+      "parquet_type": "String",
+      "real_count": 178,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 17595,
+      "distinct_count": 92,
+      "logical_type": "STRING",
+      "name": "GST_COMPANY_NAME",
+      "null_count": 15465,
+      "parquet_type": "String",
+      "real_count": 583,
+      "values_suppressed": "free_text"
+    },
+    {
+      "blank_count": 18039,
+      "distinct_count": 32,
+      "logical_type": "STRING",
+      "name": "GST_COMPANY_REG_NO",
+      "null_count": 15479,
+      "parquet_type": "String",
+      "real_count": 125,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 21,
+      "logical_type": "TIME(nanos)",
+      "max": "21:00:00",
+      "min": "00:00:00",
+      "name": "STANDARD_HOUR_FROM",
+      "null_count": 32807,
+      "parquet_type": "Time",
+      "real_count": 836,
+      "top_values": [
+        {
+          "count": 292,
+          "value": "00:00:00"
+        },
+        {
+          "count": 226,
+          "value": "08:00:00"
+        },
+        {
+          "count": 204,
+          "value": "09:00:00"
+        },
+        {
+          "count": 65,
+          "value": "08:30:00"
+        },
+        {
+          "count": 11,
+          "value": "07:00:00"
+        },
+        {
+          "count": 11,
+          "value": "10:00:00"
+        },
+        {
+          "count": 8,
+          "value": "09:30:00"
+        },
+        {
+          "count": 5,
+          "value": "07:30:00"
+        },
+        {
+          "count": 2,
+          "value": "07:45:00"
+        },
+        {
+          "count": 1,
+          "value": "00:09:00"
+        },
+        {
+          "count": 1,
+          "value": "08:04:00"
+        },
+        {
+          "count": 1,
+          "value": "08:12:00"
+        },
+        {
+          "count": 1,
+          "value": "08:15:00"
+        },
+        {
+          "count": 1,
+          "value": "08:21:00"
+        },
+        {
+          "count": 1,
+          "value": "09:01:00"
+        },
+        {
+          "count": 1,
+          "value": "09:05:00"
+        },
+        {
+          "count": 1,
+          "value": "09:13:00"
+        },
+        {
+          "count": 1,
+          "value": "09:21:00"
+        },
+        {
+          "count": 1,
+          "value": "10:30:00"
+        },
+        {
+          "count": 1,
+          "value": "15:00:00"
+        },
+        {
+          "count": 1,
+          "value": "21:00:00"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 42,
+      "logical_type": "TIME(nanos)",
+      "max": "23:59:00",
+      "min": "00:00:00",
+      "name": "STANDARD_HOUR_TO",
+      "null_count": 32807,
+      "parquet_type": "Time",
+      "real_count": 836
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 18,
+      "logical_type": "TIME(nanos)",
+      "max": "21:00:00",
+      "min": "00:00:00",
+      "name": "PUBLIC_HOUR_FROM",
+      "null_count": 32807,
+      "parquet_type": "Time",
+      "real_count": 836,
+      "top_values": [
+        {
+          "count": 471,
+          "value": "00:00:00"
+        },
+        {
+          "count": 161,
+          "value": "08:00:00"
+        },
+        {
+          "count": 131,
+          "value": "09:00:00"
+        },
+        {
+          "count": 25,
+          "value": "08:30:00"
+        },
+        {
+          "count": 14,
+          "value": "10:00:00"
+        },
+        {
+          "count": 11,
+          "value": "07:00:00"
+        },
+        {
+          "count": 8,
+          "value": "09:30:00"
+        },
+        {
+          "count": 5,
+          "value": "07:30:00"
+        },
+        {
+          "count": 1,
+          "value": "00:30:00"
+        },
+        {
+          "count": 1,
+          "value": "03:00:00"
+        },
+        {
+          "count": 1,
+          "value": "04:00:00"
+        },
+        {
+          "count": 1,
+          "value": "06:00:00"
+        },
+        {
+          "count": 1,
+          "value": "08:13:00"
+        },
+        {
+          "count": 1,
+          "value": "08:15:00"
+        },
+        {
+          "count": 1,
+          "value": "09:14:00"
+        },
+        {
+          "count": 1,
+          "value": "16:00:00"
+        },
+        {
+          "count": 1,
+          "value": "17:00:00"
+        },
+        {
+          "count": 1,
+          "value": "21:00:00"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 34,
+      "logical_type": "TIME(nanos)",
+      "max": "23:59:00",
+      "min": "00:00:00",
+      "name": "PUBLIC_HOUR_TO",
+      "null_count": 32807,
+      "parquet_type": "Time",
+      "real_count": 836
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 4,
+      "logical_type": "STRING",
+      "max": "3",
+      "min": "0",
+      "name": "OWNERSHIP_CODE",
+      "null_count": 32343,
+      "parquet_type": "String",
+      "real_count": 1300,
+      "top_values": [
+        {
+          "count": 1151,
+          "value": "0"
+        },
+        {
+          "count": 55,
+          "value": "3"
+        },
+        {
+          "count": 51,
+          "value": "2"
+        },
+        {
+          "count": 43,
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "isAME",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33590,
+          "value": false
+        },
+        {
+          "count": 53,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "isLTM",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33565,
+          "value": false
+        },
+        {
+          "count": 78,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "IsEfarma",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33640,
+          "value": false
+        },
+        {
+          "count": 3,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "NO_DOCTOR_MALE",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 31449,
+          "value": false
+        },
+        {
+          "count": 2194,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "NO_DOCTOR_FEMALE",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 31663,
+          "value": false
+        },
+        {
+          "count": 1980,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "isPERKESO",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33529,
+          "value": false
+        },
+        {
+          "count": 114,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "isOH",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33635,
+          "value": false
+        },
+        {
+          "count": 8,
+          "value": true
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 6960,
+      "logical_type": "STRING",
+      "name": "QR_ENCRYPTED_TEXT",
+      "null_count": 26683,
+      "parquet_type": "String",
+      "real_count": 6960,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 6960,
+      "logical_type": "STRING",
+      "name": "QR_FILE_PATH",
+      "null_count": 26683,
+      "parquet_type": "String",
+      "real_count": 6960,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 2329,
+      "distinct_count": 2537,
+      "logical_type": "STRING",
+      "name": "APPS_PHONE_NO",
+      "null_count": 28495,
+      "parquet_type": "String",
+      "real_count": 2819,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 1462,
+      "distinct_count": 2808,
+      "logical_type": "STRING",
+      "name": "einv_tin_no",
+      "null_count": 28164,
+      "parquet_type": "String",
+      "real_count": 4017,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 2755,
+      "distinct_count": 80,
+      "logical_type": "STRING",
+      "name": "einv_sst_no",
+      "null_count": 30776,
+      "parquet_type": "String",
+      "real_count": 112,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 1482,
+      "distinct_count": 3025,
+      "logical_type": "STRING",
+      "name": "einv_email",
+      "null_count": 28164,
+      "parquet_type": "String",
+      "real_count": 3997,
+      "values_suppressed": "pdpa"
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 4,
+      "logical_type": "INT64",
+      "max": 3,
+      "min": 0,
+      "name": "id_LK180",
+      "null_count": 30776,
+      "parquet_type": "Int64",
+      "real_count": 2867,
+      "top_values": [
+        {
+          "count": 1867,
+          "value": 0
+        },
+        {
+          "count": 857,
+          "value": 3
+        },
+        {
+          "count": 120,
+          "value": 2
+        },
+        {
+          "count": 23,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 1,
+      "logical_type": "BOOLEAN",
+      "name": "is_TwoStagesVerify",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33643,
+          "value": false
+        }
+      ]
+    },
+    {
+      "blank_count": 0,
+      "distinct_count": 2,
+      "logical_type": "BOOLEAN",
+      "name": "IsAME_MPM",
+      "null_count": 0,
+      "parquet_type": "Boolean",
+      "real_count": 33643,
+      "top_values": [
+        {
+          "count": 33610,
+          "value": false
+        },
+        {
+          "count": 33,
+          "value": true
+        }
+      ]
+    }
+  ],
+  "profile_schema_version": 1,
+  "row_count": 33643,
+  "source_filename": "PR001.parquet",
+  "source_sha256": "b0aa316e4b67027c2be72bfe417488dc28024ee26e56ad3308d563bcbce04b3e"
+}

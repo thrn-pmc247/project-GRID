@@ -1,8 +1,8 @@
 ---
 title: Open Questions
 owner: thiran
-last_verified: 2026-08-12
-verify_by: 2026-11-10
+last_verified: 2026-08-17
+verify_by: 2026-11-15
 covers_paths: []
 status: current
 ---
@@ -94,6 +94,110 @@ fetching of `mygos.mygeoportal.gov.my` is prohibited until 16 is settled (guardr
 21. **MADANI panel growth figures** (750+ clinics August 2023 → a reported 1,205 in
     2026) come from secondary Malaysian news sources, not ProtectHealth primary
     material. Do not quote as fact (guardrail 10). *(Raised 2026-08-12.)*
+
+## PR001 provider master — what the codes mean
+
+Questions for the PNM team about the provider master extract (PR001, 33,643 providers,
+dated 5 August 2026). Each one is about a field PNM's own systems fill in, so no database
+access is needed to answer — the team's working knowledge is the authority. Where the
+answer is unknown, GRID records "unknown" rather than a plausible guess (guardrail 10),
+and the affected records sit in a review queue instead of the engagement queue.
+*(All raised 2026-08-17; evidence in `docs/reconciliation-pr001.md` and ADR 0005.)*
+
+22. **What does the provider "category" letter mean?** Every provider carries a
+    single-letter category. Almost all of them share one letter — P covers 33,322 of the
+    33,643 — and the rest are spread thinly: G 244, C 28, A 21, F 12, U 11, X 5. Please
+    give us the word behind each letter. *What changes:* if any of these letters marks a
+    provider that is not a normal panel clinic (a group scheme, a corporate account, a
+    test record), GRID must exclude it from the incumbent count, and today it cannot.
+23. **What does the "payment method" letter mean?** Three letters are in use: C for
+    19,868 providers, M for 11,035, X for 2,740. *What changes:* if one of these marks
+    providers who are not actually billing PMCare, our "already on panel" figure is
+    overstated and Queue B is being suppressed against providers it should not be.
+24. **What does the "ownership" code mean, and why is it filled in for so few?** Four
+    codes are used — 0, 1, 2 and 3 — but only 1,300 of the 33,643 providers have one at
+    all. Please tell us what the four codes stand for, and whether the field is only
+    completed for certain kinds of provider or was simply never rolled out. *What
+    changes:* ownership type (sole practitioner vs group vs corporate chain) would be a
+    strong prioritisation signal for engagement. If the field is unreliable we will not
+    use it, and we should stop presenting it.
+25. **What is "LK180"?** There is a field named `id_LK180` holding a small number — 0, 1,
+    2 or 3 — for 2,867 providers and nothing for the rest. Nobody here knows what LK180
+    refers to. Is it a form number, a scheme, a legacy system, a benefit table? *What
+    changes:* if it identifies a scheme or benefit category it becomes part of the
+    provider profile; if it is a dead legacy field we drop it and stop carrying it
+    forward.
+26. **What does provider status "V" mean?** Provider status uses A (active, 29,591), T
+    (terminated, 4,032) and S (suspended, 17) — and those three are confirmed by the
+    dates that accompany them. Three providers carry a fourth value, V, with neither a
+    termination nor a suspension date. Are those three live providers, records in
+    progress, or something else? *What changes:* three records is small, but GRID has to
+    decide whether they count as part of the incumbent network, and it will not guess.
+27. **What are these 14 provider-discipline codes?** The provider-type field uses 21
+    codes. We can read seven of them. These 14 we cannot, shown with how many
+    providers hold each:
+    WP 720, AM 690, MS 637, FS 442, DC 279, TD 22, NA 17, CL 9, IM 6, MT 2, CP 2, PT 2,
+    PM 1, FT 1. *What changes:* this is the field that decides whether a provider is a GP
+    clinic. GRID is GP/primary-care only (guardrail 7), so any of these 14 that turns out
+    to be general practice is currently being left out of the incumbent GP count — and
+    any that is a specialist or allied service would wrongly enter it if we guessed
+    generously. 2,830 providers sit behind these 14 codes.
+28. **Is "HBRN" the MOH facility registration number?** There is a registration-style
+    reference recorded for 4,796 of the 33,643 providers under the heading HBRN. Is that
+    the facility's registration number with the Ministry of Health under the private
+    healthcare facilities legislation, or is it something internal to PMCare? *What
+    changes:* this is the single most valuable answer on this list. A confirmed regulator
+    registration number would let GRID match a newly registered clinic to a PMCare record
+    exactly, instead of matching on name and postcode and accepting the errors that
+    brings. It also decides how the field is protected: until confirmed it is treated as
+    personal data, because a sole practitioner's registration identifies a person.
+29. **Is state code "PJ" Putrajaya?** The state field uses 18 values. Fifteen are the
+    states plus Kuala Lumpur and Labuan. Putrajaya — the third federal territory — does
+    not appear at all, unless PJ is it. PJ is used by 118 providers. Note that PJ is also
+    a very common shorthand for Petaling Jaya, which is a town in Selangor, not a state.
+    Which is it? *What changes:* 118 providers are currently assigned to a state we are
+    not certain exists in this coding scheme, and state is used both for territory
+    planning and as a cross-check on postcodes.
+30. **Were the male/female doctor fields meant to be head counts?** Two fields are named
+    as though they hold the number of male and the number of female doctors at a clinic,
+    but the system stores each of them as a simple yes/no. Was a count intended and
+    quietly lost, or has it always been a yes/no? *What changes:* clinic size is a useful
+    engagement signal. If these were meant to be counts, the data as stored cannot supply
+    them and we should say so rather than report a misleading figure.
+31. **What is the difference between the two "AME" flags?** Providers carry two separate
+    yes/no flags whose names both refer to AME — one plain, one suffixed MPM. Are they
+    the same thing recorded twice, two stages of one scheme, or two unrelated schemes?
+    *What changes:* if they are duplicates, one should be retired. If they are different,
+    we need to know which one to trust when the two disagree.
+32. **What does "LTM" stand for?** There is a yes/no flag named for LTM and nobody here
+    can expand the abbreviation. *What changes:* until it is expanded GRID carries the
+    flag forward without meaning and never uses it in scoring or reporting. If it turns
+    out to be a scheme or accreditation, it may be worth using.
+
+### PR001 provider master — data-quality questions raised by the build (2026-08-17)
+
+33. **Are the notes in the provider records cut short?** Several notes end mid-word, for
+    example "…CHANGE TO N" and "…/TAKE ", suggesting the notes field is truncated at
+    around 70 characters somewhere between the provider system and this extract.
+    *What changes:* the notes are where PNM records that one clinic was re-keyed under a
+    new code, and GRID recovered 96 such links from them. If the text is being cut off,
+    an unknown number of further links are simply unrecoverable from this extract at any
+    level of care, and the fix is a better extract rather than better code. Please confirm
+    with whoever produces the extract whether the field is being truncated, and if so
+    whether the full text can be supplied.
+34. **Can a provider code be shorter than five characters?** Nearly all codes are five to
+    twelve characters, but at least one three-character code exists ("GOH").
+    *What changes:* the routine that recovers re-keying links ignores short alphabetic
+    tokens, because otherwise ordinary words in the notes get mistaken for codes. If short
+    codes are genuinely in use, that rule is losing real links and needs revisiting.
+35. **Should a clinic's map position be checked against Malaysian territory, and by whom?**
+    GRID currently checks a coordinate against a simple rectangle drawn around Malaysia.
+    That rectangle unavoidably also covers parts of Indonesia, Singapore, Brunei, southern
+    Thailand and open sea, so a coordinate can pass the check while not being in Malaysia
+    at all — one repaired record lands in Indonesian Borneo. *What changes:* nothing
+    urgent, because coordinates are only ever used to confirm a match and never to make
+    one. But if map position is ever to be relied on for territory or state reporting, we
+    need an authoritative Malaysian boundary dataset, and someone needs to own sourcing it.
 
 ## Closed
 

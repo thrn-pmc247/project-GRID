@@ -5,18 +5,18 @@
 
 | File | Title | Status | Last verified | Verify by |
 |---|---|---|---|---|
-| architecture.md | Architecture | current | 2026-08-06 | 2026-11-04 |
+| architecture.md | Architecture | current | 2026-08-12 | 2026-11-10 |
 | brand.md | PMCare Brand Tokens | current | 2026-08-06 | 2026-11-04 |
 | compliance-outreach.md | Compliance — Outreach | current | 2026-08-06 | 2026-11-04 |
 | compliance-pdpa.md | Compliance — PDPA | current | 2026-08-06 | 2026-11-04 |
-| compliance-scraping.md | Compliance — Scraping & Source Access | current | 2026-08-06 | 2026-11-04 |
+| compliance-scraping.md | Compliance — Scraping & Source Access | current | 2026-08-12 | 2026-11-10 |
 | conventions.md | Conventions | current | 2026-08-06 | 2026-11-04 |
-| costs.md | Costs | current | 2026-08-06 | 2026-11-04 |
-| data-model.md | Data Model | current | 2026-08-06 | 2026-11-04 |
-| data-sources.md | Data Sources | current | 2026-08-06 | 2026-11-04 |
-| entity-resolution.md | Entity Resolution | current | 2026-08-06 | 2026-11-04 |
-| environment.md | Environment | current | 2026-08-06 | 2026-11-04 |
+| costs.md | Costs | current | 2026-08-12 | 2026-11-10 |
+| data-model.md | Data Model | current | 2026-08-17 | 2026-11-15 |
+| data-sources.md | Data Sources | current | 2026-08-12 | 2026-11-10 |
+| entity-resolution.md | Entity Resolution | current | 2026-08-12 | 2026-11-10 |
+| environment.md | Environment | current | 2026-08-17 | 2026-11-15 |
 | glossary.md | Glossary | current | 2026-08-06 | 2026-11-04 |
 | malaysian-data-conventions.md | Malaysian Data Conventions | current | 2026-08-06 | 2026-11-04 |
-| open-questions.md | Open Questions | current | 2026-08-06 | 2026-11-04 |
-| roadmap.md | Roadmap | current | 2026-08-06 | 2026-11-04 |
+| open-questions.md | Open Questions | current | 2026-08-17 | 2026-11-15 |
+| roadmap.md | Roadmap | current | 2026-08-12 | 2026-11-10 |

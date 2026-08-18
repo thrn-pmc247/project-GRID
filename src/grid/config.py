@@ -28,6 +28,10 @@ class Settings(BaseSettings):
     api_port: int = 8000
     log_level: str = "INFO"
     environment: str = "dev"
+    # Keyed-hash secret for pseudonymising DOCTOR_NAME (PDPA 2010). Deliberately blank
+    # by default — grid.pr001.pdpa raises rather than hash with an empty key, since a
+    # keyless digest over a name space this small is trivially reversible.
+    pii_hash_salt: str = ""
     # HARD GATE — outreach send capability. Stays False until PMCare compliance
     # sign-off (docs/context/compliance-outreach.md, CLAUDE.md guardrail 6).
     outreach_send_enabled: bool = False

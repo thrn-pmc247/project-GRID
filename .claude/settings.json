@@ -2,6 +2,8 @@
   "permissions": {
     "deny": [
       "WebFetch(domain:hq.moh.gov.my)",
+      "WebFetch(domain:mygos.mygeoportal.gov.my)",
+      "WebFetch(domain:*.mygeoportal.gov.my)",
       "WebFetch(domain:ssm.com.my)",
       "WebFetch(domain:*.ssm.com.my)",
       "Read(.env)",

@@ -553,6 +553,7 @@ dependencies = [
     { name = "pdfplumber" },
     { name = "phonenumbers" },
     { name = "playwright" },
+    { name = "polars" },
     { name = "psycopg", extra = ["binary"] },
     { name = "pydantic" },
     { name = "pydantic-settings" },
@@ -562,11 +563,6 @@ dependencies = [
     { name = "structlog" },
     { name = "typer" },
     { name = "uvicorn" },
-]
-
-[package.optional-dependencies]
-perf = [
-    { name = "polars" },
 ]
 
 [package.dev-dependencies]
@@ -592,7 +588,7 @@ requires-dist = [
     { name = "pdfplumber", specifier = ">=0.11" },
     { name = "phonenumbers", specifier = ">=8.13" },
     { name = "playwright", specifier = ">=1.45" },
-    { name = "polars", marker = "extra == 'perf'", specifier = ">=1.0" },
+    { name = "polars", specifier = ">=1.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2" },
     { name = "pydantic", specifier = ">=2.7" },
     { name = "pydantic-settings", specifier = ">=2.3" },
@@ -603,7 +599,6 @@ requires-dist = [
     { name = "typer", specifier = ">=0.12" },
     { name = "uvicorn", specifier = ">=0.30" },
 ]
-provides-extras = ["perf"]
 
 [package.metadata.requires-dev]
 dev = [

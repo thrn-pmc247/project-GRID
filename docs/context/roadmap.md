@@ -1,8 +1,8 @@
 ---
 title: Roadmap
 owner: thiran
-last_verified: 2026-08-12
-verify_by: 2026-11-10
+last_verified: 2026-08-17
+verify_by: 2026-11-15
 covers_paths: []
 status: current
 ---
@@ -19,7 +19,18 @@ Claude Code hooks, uv environment, compose.yaml, Alembic init, ADRs 0001–0003,
 slash commands, five project skills, Tier 1 MCP config.
 Known blocked item: Docker Desktop not installed → database not yet brought up.
 
-## Phase 1 — Authoritative spine (target weeks 1–4) — ⬜ not started
+## Phase 1 — Authoritative spine (target weeks 1–4) — 🟨 in progress
+
+> **Incumbent side landed 2026-08-17 (ADR 0005).** PMCare's provider master (PR001,
+> 33,643 × 70) now loads end to end: bronze (verbatim, append-only generations,
+> idempotent on SHA-256) → staging (typed, 33,643 rows, unique on `provider_code` and
+> `row_guid`) → core (incumbent network, inferred chains, mined REMARKS signals) plus a
+> segregated `pii` schema and a first Alembic migration covering 23 tables. This is the
+> **suppression and reconciliation target**, not discovery. Detail:
+> `docs/reconciliation-pr001.md`.
+>
+> Delivered against the acceptance list below: the first migration, the PMCare panel
+> loader, and the KPI baseline. Still outstanding: everything on the discovery side.
 
 > **Rewritten 2026-08-12 (ADR 0004).** The spine is the MyGeoCKAPS ArcGIS REST service
 > (layer 5), not parsed CKAPS PDFs. PDF parsing, `pdfplumber`, layout inference and OCR
@@ -37,6 +48,13 @@ MyGeoCKAPS layer 5 → paginated GeoJSON pull → normalise → snapshot → CSV
 ```
 
 **Acceptance:**
+- [x] **PMCare panel loaded and reconciled** — PR001 lands 33,643 rows across bronze,
+      staging and core with counts reconciling at every layer, a committed profile
+      fixture as a drift detector, and an unknown-code guard that breaks the build on
+      an undeclared code. Panel suppression can now be sourced from
+      `PMCARE_PANEL_STATUS` (GP + active + on panel = 5,956).
+- [x] **First Alembic migration** — 23 tables across five schemas; `upgrade head` and
+      `downgrade base` both verified.
 - [ ] Layer 5 pulls completely for **all states incl. Sabah & Sarawak** into a
       normalised table with a measured field-completeness report, and a record count
       reconciled against MOH's 11,067 registered private medical clinics (2024).

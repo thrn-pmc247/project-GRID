@@ -1,7 +1,7 @@
 # Project GRID — Agent Context Router
 
 > **Read this file fully every session. Load linked context files on demand per the table below.**
-> Last verified: 2026-08-12 · Budget: ≤150 lines / ≤1,200 words (enforced by `scripts/check_context.py`)
+> Last verified: 2026-08-17 · Budget: ≤150 lines / ≤1,200 words (enforced by `scripts/check_context.py`)
 
 ## Mission
 
@@ -16,8 +16,13 @@ GP / primary care only.
 
 ## Current state
 
-- Phase: 1 of 3 — Authoritative spine (bootstrap scaffold complete; pipeline code not started)
-- Spine changed 2026-08-12 (ADR 0004): MyGeoCKAPS ArcGIS REST layer 5, **not** CKAPS PDFs
+- Phase: 1 of 3 — Authoritative spine. **Incumbent side built** (2026-08-17): the PR001
+  provider master loads bronze→staging→core with reference tables, a coordinate gate, a
+  REMARKS miner and PDPA controls. Discovery side not started.
+- Two spines, two roles: **MyGeoCKAPS layer 5 = discovery** (ADR 0004, still current);
+  **PR001 = the incumbent network and the resolution target** (ADR 0005).
+- `PROVIDER_CODE` and `ROW_GUID` are the only safe PR001 keys. `MIX_ROW_ID` collides on
+  15 rows — never join, index or constrain on it.
 - Next milestone: `sources/base.py`. The `mygeockaps` adapter is **gated** on open
   questions 14–16 (field list / record count / access) — do not write it before they clear
 - Status detail: `docs/context/roadmap.md`
@@ -45,6 +50,13 @@ GP / primary care only.
 12. Commercial/pricing/contract questions go to the business owner — never answered here.
 13. Respect robots.txt and ToS everywhere, including dev tooling and MCP servers (they are
     not an exemption). Every adapter declares `SourceMeta` with a `legal_basis`.
+14. **PR001 handling.** Extracts stay out of git (`/PR001*`, `*.parquet` — keep the root
+    anchor: bare `PR001*` also matches `src/grid/pr001/`). `core.provider_outlet` is the
+    incumbent network — discovery **never** writes to it; candidates go to
+    `core.grid_candidate` and join via `core.outlet_candidate_link`. `QR_ENCRYPTED_TEXT`
+    and `QR_FILE_PATH` are bronze-only. Coordinates are confirmatory only — just 29% of
+    the master has a usable pair. Codes undeclared in `staging.ref_*` must break the
+    build, never pass as NULL.
 
 ## Context map
 
@@ -67,6 +79,8 @@ GP / primary care only.
 | `docs/context/open-questions.md` | Unresolved decisions for the human | Blocked or uncertain |
 | `docs/decisions/` | ADRs — why things are the way they are | Revisiting a decision |
 | `docs/runbooks/` | Operational procedures | Running or fixing the pipeline |
+| `docs/reconciliation-pr001.md` | PR001 vs the mockup: what the data broke, measured | Touching PR001 or the data model |
+| `docs/data-dictionary-pr001.yaml` | All 70 PR001 columns: type, fill, disposition | Touching a specific PR001 column |
 
 ## Definition of Done — applies to every task
 

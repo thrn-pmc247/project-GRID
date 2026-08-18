@@ -12,6 +12,15 @@ exports/
 /*.xlsx
 /*.csv
 /*.pdf
+# Provider master extracts carry PII: DOCTOR_NAME, phones, e-invoice TINs.
+# Parquet is excluded at any depth — the root-only rules above do not cover it.
+*.parquet
+# Extract files live at the repo root, so this pattern MUST stay root-anchored.
+# An unanchored `PR001*` also matches the directory src/grid/pr001/ under
+# core.ignorecase=true (the Windows default), which would silently exclude the whole
+# PR001 source package from commits while still working on a case-sensitive CI checkout.
+/PR001*
+!tests/fixtures/pr001_profile.json
 
 # --- python ---
 __pycache__/

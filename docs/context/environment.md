@@ -1,8 +1,8 @@
 ---
 title: Environment
 owner: thiran
-last_verified: 2026-08-06
-verify_by: 2026-11-04
+last_verified: 2026-08-17
+verify_by: 2026-11-15
 covers_paths:
   - pyproject.toml
   - compose.yaml
@@ -34,14 +34,32 @@ always via `pathlib`, never hardcoded `/` or `\`.
   ever needed on Windows, document the install path here before depending on it.
 - Playwright browsers are NOT installed yet — `uv run playwright install chromium`
   when Phase 2 scraping work starts.
+- **Parquet: `polars` only.** Promoted from the `perf` extra to a main dependency
+  2026-08-17, because the PR001 incumbent-master path (bronze loader,
+  `tools/profile_parquet.py`) makes parquet reading load-bearing and CI's
+  `uv sync --all-groups` does **not** install extras. `pandas` 3.x is installed without
+  `pyarrow` and therefore cannot read parquet at all. **Do not add `pyarrow`** — one
+  parquet stack only (`docs/reconciliation-pr001.md` §6, ADR 0006).
 
 ## Database
 
 Postgres 16 + PostGIS via Docker Desktop: `docker compose up -d db` (`compose.yaml`),
 bound to `127.0.0.1:5432`. Migrations via Alembic (`alembic.ini`,
-`src/grid/db/migrations/`). **Status 2026-08-06: Docker Desktop is not installed on
-this machine** — install it, then compose up and run migrations
-(`open-questions.md`).
+`src/grid/db/migrations/`). **Status 2026-08-17: Docker Desktop is still not installed
+on this machine** (`open-questions.md` item 2).
+
+**Offline path (ADR 0006).** Because Postgres is unavailable, the layered model runs on
+SQLite using `ATTACH DATABASE` to provide genuine schema-qualified names — the layer
+schemas `bronze`, `staging`, `core`, `ops`, `pii` resolve identically on both engines.
+`grid.db.engine.make_engine()` picks the right mechanism; `ensure_schemas()` issues
+`CREATE SCHEMA` on Postgres and is a no-op on SQLite. `alembic upgrade head` and
+`downgrade base` are both verified against SQLite, with `alembic_version` living in the
+`ops` schema. **PostGIS is not exercised offline**, which is why coordinates are stored
+as plain floats plus a `coord_quality` enum rather than a PostGIS point.
+
+Secrets note: `GRID_PII_HASH_SALT` must be set before any personal data is loaded —
+`grid.pr001.pdpa` raises `MissingSaltError` rather than hash doctor names with an empty
+key.
 
 ## Secrets
 
